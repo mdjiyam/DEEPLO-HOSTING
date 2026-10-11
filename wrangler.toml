@@ -1,0 +1,43 @@
+name = "deeplo-hosting-api"
+main = "backend/src/index.ts"
+compatibility_date = "2026-10-09"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+APP_NAME = "DEEPLO HOSTING"
+ALLOWED_ORIGIN = "https://YOUR-FRONTEND-DOMAIN.example"
+MAX_SITE_BYTES = "10485760"
+MAX_SITES_PER_ACCOUNT = "3"
+# Separate origin for customer sites (e.g. "deeplosites.com" -> https://<slug>.deeplosites.com). Empty = path mode /s/<slug>/ (NOT isolated).
+SITE_DOMAIN = ""
+# Optional: MAIL_FROM = "DEEPLO <no-reply@yourdomain.com>"  (secret RESEND_API_KEY)
+# Optional Cloudflare custom hostnames: FALLBACK_ORIGIN = "sites.deeplosites.com" (secrets CF_API_TOKEN, CF_ZONE_ID)
+
+[[r2_buckets]]
+binding = "SITES"
+bucket_name = "deeplo-hosting-sites"
+
+# Set SUPABASE_URL and SUPABASE_ANON_KEY as Worker secrets; never commit them.
+
+# Route the wildcard customer-site domain to this Worker (needs the zone on Cloudflare + wildcard DNS record):
+# routes = [ { pattern = "*.deeplosites.com/*", zone_name = "deeplosites.com" } ]
+
+# Optional visit analytics (view in Cloudflare dashboard / SQL API):
+# [[analytics_engine_datasets]]
+# binding = "ANALYTICS"
+# dataset = "deeplo_sites"
+
+# Optional global rate limiting (replaces the per-isolate fallback):
+# [[unsafe.bindings]]
+# name = "RATE_LIMITER"
+# type = "ratelimit"
+# namespace_id = "1001"
+# simple = { limit = 30, period = 60 }
+
+# Nightly backup of registry/domains (+ optional mirror of site files to a second bucket) and health check:
+[triggers]
+crons = ["0 3 * * *"]
+# [[r2_buckets]]
+# binding = "BACKUP"
+# bucket_name = "deeplo-hosting-backup"
+# Optional vars/secrets: ALERT_WEBHOOK (Slack/Discord URL), ADMIN_EMAIL, CF_ACCOUNT_ID + CF_ANALYTICS_TOKEN (read analytics), ANALYTICS_DATASET

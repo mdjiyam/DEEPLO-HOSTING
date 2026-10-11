@@ -1,0 +1,72 @@
+/* DEEPLO 4.2 — animation layer (pure CSS; progressive enhancement, respects reduced-motion) */
+#fxCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.75}
+.main-wrap,main,.standalone,.wrap{position:relative;z-index:1}
+.main-wrap{background:transparent!important}
+.topbar{background:rgba(10,20,13,.72)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+
+/* Scroll reveal (only active when JS added .js-anim) */
+.js-anim .rv{opacity:0;transform:translateY(22px) scale(.985);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.js-anim .rv.in{opacity:1;transform:none}
+
+/* Cursor-follow glow on cards */
+.fx-glow{position:relative;overflow:hidden}
+.fx-glow::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(53,216,121,.16),transparent 70%)}
+.fx-glow:hover::before{opacity:1}
+.tool-card:hover,.stat-card:hover,.security-grid article:hover,.project-card:hover{border-color:#35d879!important;box-shadow:0 12px 30px rgba(34,184,97,.16)!important}
+.stat-card,.security-grid article,.project-card{transition:transform .25s,border-color .25s,box-shadow .25s}
+.stat-card:hover,.security-grid article:hover,.project-card:hover{transform:translateY(-3px)}
+
+/* Gradient shimmer headline */
+.welcome h1,.hero h1{background:linear-gradient(100deg,#e8f4eb 20%,#49e98a 45%,#e8f4eb 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fxShine 6s linear infinite}
+.title-dot{-webkit-text-fill-color:#35d879}
+@keyframes fxShine{from{background-position:120% 0}to{background-position:-100% 0}}
+
+/* Hero orbit / cloud / server */
+.visual-orbit{animation:fxSpin 16s linear infinite;box-shadow:0 0 22px rgba(53,216,121,.12)}
+.orbit-b{animation-duration:23s;animation-direction:reverse}
+.visual-cloud{animation:fxFloat 4.5s ease-in-out infinite;filter:drop-shadow(0 0 16px rgba(53,216,121,.55))}
+.visual-server{animation:fxFloat 5.5s ease-in-out -1.5s infinite}
+.visual-server span{animation:fxBlink 1.4s ease-in-out infinite;box-shadow:0 0 8px #35d879}
+@keyframes fxSpin{to{rotate:360deg}}
+@keyframes fxFloat{50%{transform:translateY(-9px)}}
+@keyframes fxBlink{50%{opacity:.25}}
+
+/* Live status pulses */
+.status-dot,.secure-label i,.updated-pill i,.live-dot{animation:fxPulse 2s ease-out infinite}
+@keyframes fxPulse{0%{box-shadow:0 0 0 0 rgba(53,216,121,.6)}100%{box-shadow:0 0 0 9px rgba(53,216,121,0)}}
+
+/* Sidebar & buttons */
+.nav-link{position:relative;overflow:hidden}
+.nav-link:hover{transform:translateX(4px)}
+.nav-link span{transition:transform .25s}.nav-link:hover span{transform:scale(1.2) rotate(-6deg)}
+.btn{position:relative;overflow:hidden}
+.btn.primary{background-image:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);background-size:250% 100%;background-position:150% 0;transition:background-position .6s,transform .18s,box-shadow .18s}
+.btn.primary:hover{background-position:-50% 0;box-shadow:0 8px 22px rgba(53,216,121,.35)}
+.fx-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:fxRipple .6s ease-out forwards;pointer-events:none}
+@keyframes fxRipple{to{transform:scale(3.2);opacity:0}}
+.brand-mark,.mark{animation:fxGlow 3.2s ease-in-out infinite}
+@keyframes fxGlow{50%{box-shadow:0 0 22px rgba(73,233,138,.55)}}
+.file-drop,.drop{transition:border-color .25s,background .25s}
+.file-drop:hover,.drop:hover{border-color:#35d879;background:#0c1c12}
+dialog[open]{animation:fxPop .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes fxPop{from{opacity:0;transform:translateY(14px) scale(.96)}}
+#toast{transition:.35s cubic-bezier(.2,.8,.2,1)}
+
+/* Intro screen — green theme, rings, typing */
+.intro{background:radial-gradient(ellipse at 50% 38%,#0f3d22 0,#08170e 45%,#040a06 100%)!important;overflow:hidden}
+.intro::before,.intro::after{content:"";position:absolute;left:50%;top:42%;width:120px;height:120px;margin:-60px 0 0 -60px;border:1px solid rgba(53,216,121,.45);border-radius:50%;animation:fxRing 3.2s ease-out infinite}
+.intro::after{animation-delay:1.6s}
+@keyframes fxRing{from{transform:scale(.5);opacity:.9}to{transform:scale(9);opacity:0}}
+.intro-inner{position:relative;z-index:2;animation:fxRise .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes fxRise{from{opacity:0;transform:translateY(26px)}}
+.intro-mark{background:linear-gradient(140deg,#4cf08f,#168447)!important;box-shadow:0 0 70px rgba(53,216,121,.45)!important;animation:fxBreath 2.4s ease-in-out infinite}
+@keyframes fxBreath{50%{transform:scale(1.07)}}
+.intro h1 span{color:#49e98a!important}
+.intro p{min-height:1.2em}
+.intro p.typing::after{content:"▍";margin-left:2px;animation:fxBlink .8s steps(1) infinite}
+.progress i{background:linear-gradient(90deg,#168447,#49e98a)!important;animation-duration:2.4s!important}
+
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ .js-anim .rv{opacity:1;transform:none}#fxCanvas{display:none}
+}

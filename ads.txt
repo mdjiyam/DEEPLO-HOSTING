@@ -1,0 +1,3 @@
+# ads.txt — Google AdSense (বা অন্য নেটওয়ার্ক) অনুমোদনের পর এখানে লাইন বসান। ফাইলটি আপনার ফ্রন্টএন্ড ডোমেইনের রুটে থাকতে হবে (https://আপনার-ডোমেইন/ads.txt)।
+# উদাহরণ (AdSense):  google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+# Adsterra/Monetag/PropellerAds ইত্যাদি নেটওয়ার্ক নিজেদের ড্যাশবোর্ডে ads.txt লাইন দেয়, সেগুলো এখানে নিচে যোগ করুন।

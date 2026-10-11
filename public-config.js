@@ -1,0 +1,1 @@
+window.DEEPLO_PUBLIC={api:"",pay:{"bKash (personal)":"01XXXXXXXXX","Amount":"৳___ / month"}}; /* api: your Worker URL (needed by the public Report page). pay: shown on the Upgrade page; edit or remove. */
